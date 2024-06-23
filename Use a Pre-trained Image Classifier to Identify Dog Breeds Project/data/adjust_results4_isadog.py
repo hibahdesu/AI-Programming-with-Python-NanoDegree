@@ -71,30 +71,39 @@ def adjust_results4_isadog(results_dic, dogfile):
     names_of_dogs = {}
 
     with open(dogfile, 'r') as dog_file:
-      for i in dog_file:
-        i = i.readline()
-        print(i)
-        names_of_dogs[i.lower().rstrip()] = 1
+
+      file_con = dog_file.readline()
+
+      while file_con != "":
+        file_con = file_con.rstrip().lower()
+
+        if file_con not in names_of_dogs:
+            names_of_dogs[file_con] = 1
+        else:
+          print(f'Thie line is already exist {file_con}, please try with something different next time.')
+
+        file_con = dog_file.readline()
 
     for k in results_dic:
       if results_dic[k][0] in names_of_dogs:
+
+        #Appends (1, 1)
         if results_dic[k][1] in names_of_dogs:
           results_dic[k].extend((1, 1))
 
         else:
+          #Appends (1, 0)
           results_dic[k].extend((1, 0))
 
 
       else:
-
+        #Appends (0, 1)
         if results_dic[k][1] in names_of_dogs:
         results_dic[k].extend((0, 1))
 
         else: 
+        #Appends (0, 0)
           results_dic[k].extend((0, 0))
-
-       
-    None
 
 
 
