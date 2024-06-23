@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/calculates_results_stats.py
 #                                                                             
-# PROGRAMMER:
-# DATE CREATED:                                  
-# REVISED DATE: 
+# PROGRAMMER: HIBAH SINDI
+# DATE CREATED: 23/06/2024                               
+# REVISED DATE: 23/06/2024
 # PURPOSE: Create a function calculates_results_stats that calculates the 
 #          statistics of the results of the programrun using the classifier's model 
 #          architecture to classify the images. This function will use the 
@@ -43,6 +43,7 @@
 #       with this function
 # 
 def calculates_results_stats(results_dic):
+    
     """
     Calculates statistics of the results of the program run using classifier's model 
     architecture to classifying pet images. Then puts the results statistics in a 
@@ -68,6 +69,27 @@ def calculates_results_stats(results_dic):
                      and the previous topic Calculating Results in the class for details
                      on how to calculate the counts and statistics.
     """        
+        
+    #First, creating an empty dictionary
+    results_stats_dic = dict()
+
+
+    #Setting all the var to 0     
+    results_stats_dic['n_dogs_img'] = 0
+    results_stats_dic['n_match'] = 0
+    results_stats_dic['n_correct_dogs'] = 0
+    results_stats_dic['n_correct_notdogs'] = 0
+    results_stats_dic['n_correct_breed'] = 0 
+
+    for k in results_dic:
+
+
+        #Checking the value of n_match to change it
+        if results_dic[k][2] == 1:
+            results_stats_dic['n_match'] += 1
+
+
+
     # Replace None with the results_stats_dic dictionary that you created with 
     # this function 
-    return None
+    return results_stats_dic
