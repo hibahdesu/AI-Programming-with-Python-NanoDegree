@@ -74,8 +74,24 @@ def calculates_results_stats(results_dic):
     results_stats_dic = dict()
 
 
+
+   ### Variable:
+#            n_images - number of images
+#            n_dogs_img - number of dog images
+#            n_notdogs_img - number of NON-dog images
+#            n_match - number of matches between pet & classifier labels
+#            n_correct_dogs - number of correctly classified dog images
+#            n_correct_notdogs - number of correctly classified NON-dog images
+#            n_correct_breed - number of correctly classified dog breeds
+#            pct_match - percentage of correct matches
+#            pct_correct_dogs - percentage of correctly classified dogs
+#            pct_correct_breed - percentage of correctly classified dog breeds
+#            pct_correct_notdogs - percentage of correctly classified NON-dogs
+
+
     #Setting all the var to 0     
     results_stats_dic['n_dogs_img'] = 0
+    results_stats_dic['n_notdogs_img'] = 0
     results_stats_dic['n_match'] = 0
     results_stats_dic['n_correct_dogs'] = 0
     results_stats_dic['n_correct_notdogs'] = 0
@@ -86,8 +102,62 @@ def calculates_results_stats(results_dic):
 
         #Checking the value of n_match to change it
         if results_dic[k][2] == 1:
-            results_stats_dic['n_match'] += 1
+             results_stats_dic['n_match'] += 1
 
+        # Pet Image Label is a Dog AND Labels match- counts Correct Breed
+        if results_dic[k][3] == 1 and results_dic[k][2] == 1:
+            #Here, it means that if results_dic[k][2] == 1, 
+                #We will increase n_correct_breed by one,
+                #which means this is a correct bread
+                results_stats_dic['n_correct_breed'] += 1
+
+
+        if results_dic[k][3] == 1: 
+            #Here, it means that if results_dic[k][3] == 1, 
+            #we will increase n_dogs_img by one, 
+            #which means this image is a dog
+            results_stats_dic['n_dogs_img'] += 1   
+
+
+            if results_dic[k][4] == 1:
+                #Here, it means that if results_dic[k][4] == 1, 
+                #We will increase n_correct_dogs by one,
+                #which means this is a correct dog
+                results_stats_dic['n_correct_dogs'] += 1 
+                
+
+        else:
+            if results_dic[k][4] == 0:
+                #Here, it means that if results_dic[k][4] == 0,
+                #we will increase n_correct_notdogs by one
+                #which means this is a not a dog
+                results_stats_dic['n_correct_notdogs'] += 1
+
+
+    #calculates number of total images            
+    results_stats_dic['n_images'] = len(results_dic)
+
+    # calculates number of not-a-dog images using - images & dog images counts
+    results_stats_dic['n_notdogs_img'] = (results_stats_dic['n_images'] - results_stats_dic['n_dogs_img']) 
+
+    # Calculates % correct for matches
+    results_stats_dic['pct_match'] = (results_stats_dic['n_match'] / results_stats_dic['n_images']) * 100.0
+
+
+    # Calculates % correct dogs
+    results_stats_dic['pct_correct_dogs'] = (results_stats_dic['n_correct_dogs'] / results_stats_dic['n_dogs_img']) * 100.0
+
+
+    # Calculates % correct breed of dog
+    results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed'] / results_stats_dic['n_dogs_img'] ) * 100.0
+
+    # Calculates % correct not-a-dog images
+    # Uses conditional statement for when no 'not a dog' images were submitted 
+    if results_stats_dic['n_notdogs_img'] > 0:
+        results_stats_dic['pct_correct_notdogs'] = (results_stats_dic['n_correct_notdogs'] /
+                                                results_stats_dic['n_notdogs_img'])*100.0
+    else:
+        results_stats_dic['pct_correct_notdogs'] = 0.0
 
 
     # Replace None with the results_stats_dic dictionary that you created with 
