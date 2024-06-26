@@ -74,7 +74,7 @@ def print_results(results_dic, results_stats_dic, model,
     print(" ")
     for key in results_stats_dic:
         # Creating a condition to look for the key that starts with the letter p
-        if key.starstwith('p') :
+        if key.startswith('p') :
             print("{:20}: {:.2f}%".format(key, results_stats_dic[key]))
 
 

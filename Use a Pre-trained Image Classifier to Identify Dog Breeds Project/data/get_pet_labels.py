@@ -40,65 +40,38 @@ def get_pet_labels(image_dir):
       List. The list contains for following item:
          index 0 = pet image label (string)
     """
-
-    ## First, I will create the filenames of the images files with the os library (listdir)
-    images_names = listdir(image_dir)
-    # print("\nPrints 10 filenames from folder pet_images/")
-    # for idx in range(0, 10, 1):
-    #   print("{:2d} file: {:>25}".format(idx + 1, images_names[idx]) )
-
-
-    ## Next, creating an empty dictionary with the name results_dic by using {} which means an empty dictionary
-    results_dic = {}
-
-    ## Creating a for loop to loop through each name of images from the file
+    # Creates list of files in directory
+    in_files = listdir(image_dir)
     
-    for i in range(0, len(images_names), 1):
-      
-      if images_names[i][0] != '.':
-        # print(images_names[i])
-        # print(images_names[i][0])
-        ## Making the names lower and split each word from _
-        names_formated = images_names[i].lower().split('_')
-        # print(names_formated)
+    # Processes each of the files to create a dictionary where the key
+    # is the filename and the value is the picture label (below).
+ 
+    # Creates empty dictionary for the results (pet labels, etc.)
+    results_dic = dict()
+   
+    # Processes through each file in the directory, extracting only the words
+    # of the file that contain the pet image label
+    for idx in range(0, len(in_files), 1):
+       
+       # Skips file if starts with . (like .DS_Store of Mac OSX) because it 
+       # isn't an pet image file
+       if in_files[idx][0] != ".":
+           
+           # Creates temporary label variable to hold pet label name extracted 
+           pet_label = ""
 
-        #Creating an empty variable for pets' names
-        pets = ""
+           # Extracts the pet label from the filename
+           pet_label = in_files[idx].split('_')[:-1]
+           pet_label = ' '.join(pet_label).lower().strip()
 
-        #Looping through each name that I have just formated
-        for name in names_formated:
-          # print(name)
-
-          #Getting only the names without numbers and the .jpg formate of the images
-          if name.isalpha():
-            # print(name)
-
-            pets += name + ' '
-            # print(pets)
-          pets = pets.strip()
-          # print(pets)
-
-          if images_names[i] not in results_dic:
-            results_dic[images_names[i]] = pets
-            # print(results_dic[images_names[i]])
-            # print(len(results_dic))
-            # print(results_dic)
-          
-          else: 
-            print("** Warning: Key=", images_names[i],  "there is the same value in =", results_dic[images_names[i]], "**")
-            print('Please try again later.')
-
-
-
-
-
-      
-
-
-    # Replace None with the results_dic dictionary that you created with this
-    # function
+           # If filename doesn't already exist in dictionary add it and it's
+           # pet label - otherwise print an error message because indicates 
+           # duplicate files (filenames)
+           if in_files[idx] not in results_dic:
+              results_dic[in_files[idx]] = [pet_label]
+              
+           else:
+               print("** Warning: Duplicate files exist in directory:", 
+                     in_files[idx])
+ 
     return results_dic
-
-
-##This is just for checking the code     
-get_pet_labels("pet_images/")

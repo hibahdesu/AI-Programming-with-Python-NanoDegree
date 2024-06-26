@@ -48,6 +48,7 @@ def main():
     # the collection of these command line arguments from the function call as
     # the variable in_arg
     in_arg = get_input_args()
+    print('The fun of get_input_args done')
 
     # Function that checks command line arguments using in_arg  
     check_command_line_arguments(in_arg)
@@ -61,9 +62,11 @@ def main():
     # This function creates the results dictionary that contains the results, 
     # this dictionary is returned from the function call as the variable results
     results = get_pet_labels(in_arg.dir)
+    print('The fun of get_pet_labels done')
 
     # Function that checks Pet Images in the results Dictionary using results    
     check_creating_pet_image_labels(results)
+    print('The fun of check_creating_pet_image_labels done')
 
 
     # TODO 3: Define classify_images function within the file classiy_images.py
@@ -75,9 +78,11 @@ def main():
     # Creates Classifier Labels with classifier function, Compares Labels, 
     # and adds these results to the results dictionary - results
     classify_images(in_arg.dir, results, in_arg.arch)
+    print('The fun of classify_images done')
 
     # Function that checks Results Dictionary using results    
     check_classifying_images(results)    
+    print('The fun of check_classifying_images done')
 
     
     # TODO 4: Define adjust_results4_isadog function within the file adjust_results4_isadog.py
@@ -89,9 +94,11 @@ def main():
     # classified images as 'a dog' or 'not a dog'. This demonstrates if 
     # model can correctly classify dog images as dogs (regardless of breed)
     adjust_results4_isadog(results, in_arg.dogfile)
+    print('The fun of adjust_results4_isadog done')
 
     # Function that checks Results Dictionary for is-a-dog adjustment using results
     check_classifying_labels_as_dogs(results)
+    print('The fun of check_classifying_labels_as_dogs done')
 
 
     # TODO 5: Define calculates_results_stats function within the file calculates_results_stats.py
@@ -101,9 +108,11 @@ def main():
     # Calculates results of run and puts statistics in the Results Statistics
     # Dictionary - called results_stats
     results_stats = calculates_results_stats(results)
+    print('The fun of calculates_results_stats done')
 
     # Function that checks Results Statistics Dictionary using results_stats
     check_calculating_results(results, results_stats)
+    print('The fun of check_calculating_results done')
 
 
     # TODO 6: Define print_results function within the file print_results.py
@@ -114,6 +123,7 @@ def main():
     # Prints summary results, incorrect classifications of dogs (if requested)
     # and incorrectly classified breeds (if requested)
     print_results(results, results_stats, in_arg.arch, True, True)
+    print('The fun of print_results done')
     
     # TODO 0: Measure total program runtime by collecting end time
     end_time = time()
